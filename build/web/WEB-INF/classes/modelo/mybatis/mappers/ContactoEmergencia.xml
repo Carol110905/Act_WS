@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ContactoEmergencia">
+    
+    <select id="getAllContactoEmergencia" resultType="modelo.pojos.ContactoEmergencia" statementType="CALLABLE">
+        {CALL sare.sp_getContactoEmergencia()}
+    </select>
+    
+    <select id="getEmergenciaByIdPersonal" resultType="modelo.pojos.ContactoEmergencia" parameterType="int" statementType="CALLABLE">
+        {CALL sare.sp_getContactoEmergenciaByIdPersonal(#{id, jdbcType=INTEGER,mode=IN})}
+    </select>
+    
+    <insert id="registrarContactoEmergencia" parameterType="map" statementType="CALLABLE">
+        {CALL sare.sp_registrarContactoEmergencia(
+            #{nombreCompleto, jdbcType=VARCHAR,mode=IN},
+            #{telefono1, jdbcType=VARCHAR,mode=IN},
+            #{telefono2, jdbcType=VARCHAR,mode=IN},
+            #{parentesco, jdbcType=VARCHAR,mode=IN},
+            #{idPersonal, jdbcType=INTEGER,mode=IN})}
+    </insert>
+    
+    <update id="actualizarContactoEmergencia" parameterType="map" statementType="CALLABLE">
+        {CALL sare.sp_actualizarContactoEmergencia(
+            #{idContacto, jdbcType=INTEGER,mode=IN},
+            #{nombreCompleto, jdbcType=VARCHAR,mode=IN},
+            #{telefono1, jdbcType=VARCHAR,mode=IN},
+            #{telefono2, jdbcType=VARCHAR,mode=IN},
+            #{parentesco, jdbcType=VARCHAR,mode=IN},
+            #{idPersonal, jdbcType=INTEGER,mode=IN})}
+    </update>
+    
+    
+    
+</mapper>
